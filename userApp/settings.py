@@ -48,6 +48,15 @@ INSTALLED_APPS = [
 #     ),
 # }
 
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),  # Initial access token lifetime
+    'ROTATE_REFRESH_TOKENS': True,
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=7),  # Maximum duration for sliding the token
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=7),  # Maximum total lifetime of the token
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
