@@ -11,7 +11,13 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 class UserView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = []
     def get(self, request):
+        # IsAuthenticated applied
+        self.permission_classes = [IsAuthenticated]
+        self.check_permissions(request)
+        
         user=User.objects.all()
         user_serializer=UserSerializer(user, many=True)
         return Response(user_serializer.data)
@@ -20,7 +26,7 @@ class UserView(APIView):
 class UserRegView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = []
-    
+
     def post(self, request):
         # IsAdminUser applited
         self.permission_classes = [IsAdminUser]
